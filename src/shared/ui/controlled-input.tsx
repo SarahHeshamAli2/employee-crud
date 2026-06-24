@@ -35,7 +35,6 @@ function ControlledInput<TFieldValues extends FieldValues>({
     field,
     fieldState: { error, isTouched, isDirty },
   } = useController({ name, control });
-
   const state =
     error != null
       ? "error"
@@ -47,6 +46,10 @@ function ControlledInput<TFieldValues extends FieldValues>({
     <Input
       {...inputProps}
       {...field}
+      value={field.value ?? ""}
+      onChange={(e) => {
+        field.onChange(e.target.value);
+      }}
       state={state}
       errorText={error?.message}
     />

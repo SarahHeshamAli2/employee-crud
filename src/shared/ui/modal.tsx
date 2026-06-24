@@ -44,7 +44,9 @@ export default function Modal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? "modal-title" : undefined}
-        className={className ?? "w-full max-w-lg rounded-lg bg-white shadow-xl"}
+        className={
+          className ?? "w-full max-w-2xl rounded-lg bg-white shadow-xl"
+        }
         onClick={(event) => event.stopPropagation()}>
         {title && (
           <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
