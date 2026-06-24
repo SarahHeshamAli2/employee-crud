@@ -5,10 +5,12 @@ import EmployeeTable from "./components/employee-table";
 import mockEmployees from "./mock-employees";
 import EmployeeFormModal from "./components/emloyee-form-modal";
 import type { EmployeeFormOutput } from "../schemes/employee.schema";
+import ConfirmDeleteModal from "../../shared/ui/confirm-delete-modal";
 
 export function EmployeesPage() {
   const [employees, setEmployees] = useState<Employee[]>(mockEmployees);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [employeeToEdit, setEmployeeToEdit] = useState<Employee | null>(null);
 
   const handleSubmit = (data: EmployeeFormOutput) => {
@@ -52,7 +54,7 @@ export function EmployeesPage() {
       <EmployeeTable
         employees={employees}
         onEdit={handleEdit}
-        onDelete={() => {}}
+        onDelete={() => setIsDeleteOpen(true)}
       />
 
       <EmployeeFormModal
@@ -63,6 +65,13 @@ export function EmployeesPage() {
           setIsFormOpen(false);
           setEmployeeToEdit(null);
         }}
+      />
+
+      <ConfirmDeleteModal
+        isOpen={isDeleteOpen}
+        onClose={() => setIsDeleteOpen(false)}
+        onConfirm={() => {}}
+        itemName="My File.pdf"
       />
     </div>
   );

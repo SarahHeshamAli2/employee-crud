@@ -59,7 +59,7 @@ export default function Modal({
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="text-gray-400 hover:text-gray-600">
+              className="text-gray-400 hover:text-gray-600 cursor-pointer">
               ✕
             </button>
           </div>
