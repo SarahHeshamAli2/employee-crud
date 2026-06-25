@@ -14,7 +14,7 @@ export const employeeFormSchema = z.object({
       .int("Age must be a whole number")
       .positive("Age must be a positive number"),
   ),
-  department: z.string().min(3, "Department is required"),
+  department: z.string().min(2, "Department is required"),
   salary: z.preprocess(
     (value) => {
       if (value === "") return undefined;

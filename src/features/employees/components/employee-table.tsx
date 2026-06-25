@@ -1,15 +1,19 @@
+import EmployeeTableSkeleton from "../../../shared/skeletons/employee-table-skeleton";
 import Button from "../../../shared/ui/button";
 import { formatSalary } from "../../../shared/utils/format-salary";
 import type { Employee } from "../types/employee.types";
 
 interface EmployeeTableProps {
   employees: Employee[];
+  isLoading?: boolean;
+  skeletonRows?: number;
   onEdit?: (employee: Employee) => void;
   onDelete?: (employee: Employee) => void;
 }
 
 export default function EmployeeTable({
   employees,
+  isLoading,
   onEdit,
   onDelete,
 }: EmployeeTableProps) {
@@ -40,7 +44,9 @@ export default function EmployeeTable({
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100">
-          {employees.length === 0 ? (
+          {isLoading ? (
+            <EmployeeTableSkeleton />
+          ) : employees.length === 0 ? (
             <tr>
               <td
                 colSpan={hasActions ? 5 : 4}

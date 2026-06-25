@@ -9,12 +9,14 @@ import {
   type EmployeeFormInput,
   type EmployeeFormOutput,
 } from "../../schemes/employee.schema";
+import { useEffect } from "react";
 
 export interface EmployeeFormModalProps {
   isOpen: boolean;
   employee?: Employee | null;
   onClose: () => void;
   onSubmit: (data: EmployeeFormOutput) => void;
+  errorMessage?: string | null;
 }
 
 export default function EmployeeFormModal({
@@ -22,6 +24,7 @@ export default function EmployeeFormModal({
   onClose,
   onSubmit,
   employee,
+  errorMessage,
 }: EmployeeFormModalProps) {
   const isEdit = !!employee;
 
@@ -45,6 +48,25 @@ export default function EmployeeFormModal({
     reset();
     onClose();
   };
+  useEffect(() => {
+    if (isOpen) {
+      reset(
+        employee
+          ? {
+              name: employee.name,
+              age: String(employee.age),
+              department: employee.department,
+              salary: String(employee.salary),
+            }
+          : {
+              name: "",
+              age: "",
+              department: "",
+              salary: "",
+            },
+      );
+    }
+  }, [isOpen, employee, reset]);
 
   return (
     <Modal
@@ -78,6 +100,12 @@ export default function EmployeeFormModal({
           label="Salary"
           type="number"
         />
+
+        {errorMessage && (
+          <p className="text-sm text-red-600 bg-red-50 p-2 rounded-sm">
+            {errorMessage}
+          </p>
+        )}
       </div>
     </Modal>
   );
