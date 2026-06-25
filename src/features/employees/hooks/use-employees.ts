@@ -6,6 +6,8 @@ export function useEmployees() {
     data: employees = [],
     isLoading,
     isError,
+    refetch,
+    error,
   } = useQuery({
     queryKey: ["employees"],
     queryFn: () => employeeService.getAll(),
@@ -15,5 +17,7 @@ export function useEmployees() {
     employees,
     isLoading,
     isError,
+    refetch,
+    error,
   };
 }

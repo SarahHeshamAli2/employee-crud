@@ -34,6 +34,7 @@ export default function EmployeeFormModal({
     EmployeeFormOutput
   >({
     resolver: zodResolver(employeeFormSchema),
+    mode: "onBlur",
     defaultValues: {
       name: "",
       age: "",

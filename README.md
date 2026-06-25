@@ -1,77 +1,122 @@
-# React + TypeScript + Vite
+# Employee Management CRUD
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack Employee Management application built as part of a technical assessment.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Frontend
 
-## React Compiler
+- React
+- TypeScript
+- React Query
+- React Hook Form
+- Zod
+- Tailwind CSS
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Backend (.NET Core)
 
-Note: This will impact Vite dev & build performances.
+- ASP.NET Core Web API (.NET 10)
+- Entity Framework Core
+- SQL Server
+- Swagger/OpenAPI
 
-## Expanding the ESLint configuration
+### Backend (.NET Framework)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ASP.NET Framework 4.7 Web API
+- Entity Framework
+- SQL Server
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Employee Management
 
+- View all employees
+- Create employee
+- Update employee
+- Delete employee
+
+### Validation
+
+- Required field validation
+- Age range validation
+- Salary validation
+- Consistent API validation responses
+
+### API
+
+- RESTful endpoints
+- Proper HTTP status codes
+- Dependency Injection
+- Entity Framework data access
+
+---
+
+## Employee Entity
+
+```json
+{
+  "id": 1,
+  "name": "John Doe",
+  "age": 30,
+  "salary": 10000,
+  "department": "IT",
+  "createdAt": "2026-06-25T10:00:00",
+  "updatedAt": "2026-06-25T10:00:00"
+}
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+Frontend/
+Backend-NetCore/
+Backend-Net47/
 ```
+
+---
+
+## Running the Application
+
+### Frontend
+
+```bash
+npm install
+npm run dev
+```
+
+### ASP.NET Core API
+
+```bash
+dotnet restore
+dotnet run
+```
+
+### ASP.NET Framework 4.7 API
+
+Open the solution in Visual Studio and run the project.
+
+---
+
+## Database
+
+- SQL Server
+- Entity Framework Migrations used for schema creation
+- Update the connection string before running the application
+
+---
+
+## API Documentation
+
+Swagger UI is available when running the ASP.NET Core API in Development mode.
+
+---
+
+## Notes
+
+- Frontend is connected to the ASP.NET Core API.
+- Both backend implementations provide the same CRUD functionality and database schema.
+- Validation and proper HTTP status codes are implemented across API endpoints.

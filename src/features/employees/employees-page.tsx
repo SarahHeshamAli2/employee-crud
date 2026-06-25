@@ -18,7 +18,7 @@ export function EmployeesPage() {
     null,
   );
 
-  const { employees, isLoading } = useEmployees();
+  const { employees, isLoading, refetch, isError, error } = useEmployees();
   const { createEmployee, errorMessage } = useCreateEmployee();
   const { updateEmployee } = useUpdateEmployee();
   const { deleteEmployee } = useDeleteEmployee({
@@ -67,13 +67,22 @@ export function EmployeesPage() {
           + Add new employee
         </Button>{" "}
       </div>
-
-      <EmployeeTable
-        employees={employees}
-        onEdit={handleEdit}
-        onDelete={handleDeleteClick}
-        isLoading={isLoading}
-      />
+      {isError ? (
+        <div className="flex flex-col items-center gap-2 py-8 text-sm text-red-600">
+          <p>
+            Failed to load employees
+            {error instanceof Error ? `: ${error.message}` : ""}
+          </p>
+          <Button onClick={() => refetch()}>Retry</Button>
+        </div>
+      ) : (
+        <EmployeeTable
+          employees={employees}
+          onEdit={handleEdit}
+          onDelete={handleDeleteClick}
+          isLoading={isLoading}
+        />
+      )}
       {isFormOpen && (
         <EmployeeFormModal
           errorMessage={errorMessage}

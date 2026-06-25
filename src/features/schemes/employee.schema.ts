@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const employeeFormSchema = z.object({
-  name: z.string().min(2, "Name is required"),
+  name: z.string().min(2, "Please enter at least 2 characters."),
   age: z.preprocess(
     (value) => {
       if (value === "") return undefined;
