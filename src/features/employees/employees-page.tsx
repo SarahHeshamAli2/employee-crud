@@ -26,7 +26,7 @@ export function EmployeesPage() {
   const debouncedSearch = useDebounce(search, 400);
 
   const { employees, isLoading, refetch, isError, error } = useEmployees(
-    debouncedSearch.trim() || undefined,
+    debouncedSearch.trim().toLowerCase() || undefined,
   );
   const { createEmployee, errorMessage } = useCreateEmployee();
   const { updateEmployee } = useUpdateEmployee();
