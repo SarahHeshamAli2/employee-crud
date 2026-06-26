@@ -17,6 +17,7 @@ export interface EmployeeFormModalProps {
   onClose: () => void;
   onSubmit: (data: EmployeeFormOutput) => void;
   errorMessage?: string | null;
+  isSubmitting?: boolean;
 }
 
 export default function EmployeeFormModal({
@@ -25,6 +26,7 @@ export default function EmployeeFormModal({
   onSubmit,
   employee,
   errorMessage,
+  isSubmitting,
 }: EmployeeFormModalProps) {
   const isEdit = !!employee;
 
@@ -79,7 +81,9 @@ export default function EmployeeFormModal({
           <Button variant="outline" onClick={handleClose}>
             Cancel
           </Button>
-          <Button onClick={handleSubmit(submitForm)}>Save</Button>
+          <Button disabled={isSubmitting} onClick={handleSubmit(submitForm)}>
+            Save
+          </Button>
         </>
       }>
       <div className="space-y-4">

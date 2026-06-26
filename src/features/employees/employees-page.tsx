@@ -119,6 +119,7 @@ export function EmployeesPage() {
             setEmployeeToEdit(null);
             createEmployee.reset();
           }}
+          isSubmitting={createEmployee.isPending || updateEmployee.isPending}
         />
       )}
       <ConfirmDeleteModal
