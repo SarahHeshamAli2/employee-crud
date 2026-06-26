@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { EmployeeFormOutput } from "../../schemes/employee.schema";
+import type { EmployeeFormOutput } from "../schemes/employee.schema";
 import { employeeService } from "../services/employees.service";
 
 export function useUpdateEmployee() {

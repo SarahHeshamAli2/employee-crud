@@ -2,11 +2,16 @@ import axiosInstance from "../api/axios";
 import type { EmployeeService } from "../types/employee.types";
 
 export const employeeService: EmployeeService = {
-  getAll: async () => {
-    const { data } = await axiosInstance.get("/employees");
+  getAll: async (search) => {
+    const { data } = await axiosInstance.get("/employees", {
+      params: { search },
+    });
     return data;
   },
-
+  getSingle: async (id) => {
+    const { data } = await axiosInstance.get(`/employees/${id}`);
+    return data;
+  },
   create: async (data) => {
     const { data: newEmployee } = await axiosInstance.post("/employees", data);
     return newEmployee;

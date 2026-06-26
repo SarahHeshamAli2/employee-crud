@@ -8,7 +8,7 @@ import {
   employeeFormSchema,
   type EmployeeFormInput,
   type EmployeeFormOutput,
-} from "../../schemes/employee.schema";
+} from "../schemes/employee.schema";
 import { useEffect } from "react";
 
 export interface EmployeeFormModalProps {

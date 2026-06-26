@@ -5,20 +5,29 @@ import EmployeeTable from "./components/employee-table";
 import EmployeeFormModal from "./components/emloyee-form-modal";
 import ConfirmDeleteModal from "../../shared/ui/confirm-delete-modal";
 import { useEmployees } from "./hooks/use-employees";
-import type { EmployeeFormOutput } from "../schemes/employee.schema";
+import type { EmployeeFormOutput } from "./schemes/employee.schema";
 import { useCreateEmployee } from "./hooks/use-create-employee";
 import { useUpdateEmployee } from "./hooks/use-update-employee";
 import { useDeleteEmployee } from "./hooks/use-delete-employee";
+import EmployeeDetailModal from "./components/employee-detail-modal";
+import { useDebounce } from "./hooks/use-debounce";
+import Input from "../../shared/ui/input";
 
 export function EmployeesPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [employeeToEdit, setEmployeeToEdit] = useState<Employee | null>(null);
+  const [employeeToView, setEmployeeToView] = useState<Employee | null>(null);
+  const [isViewOpen, setIsViewOpen] = useState(false);
   const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(
     null,
   );
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 400);
 
-  const { employees, isLoading, refetch, isError, error } = useEmployees();
+  const { employees, isLoading, refetch, isError, error } = useEmployees(
+    debouncedSearch.trim(),
+  );
   const { createEmployee, errorMessage } = useCreateEmployee();
   const { updateEmployee } = useUpdateEmployee();
   const { deleteEmployee } = useDeleteEmployee({
@@ -47,12 +56,18 @@ export function EmployeesPage() {
   const handleEdit = (employee: Employee) => {
     setEmployeeToEdit(employee);
     setIsFormOpen(true);
+    setIsViewOpen(false);
     createEmployee.reset();
   };
 
   const handleDeleteClick = (employee: Employee) => {
     setEmployeeToDelete(employee);
     setIsDeleteOpen(true);
+  };
+
+  const handleView = (employee: Employee) => {
+    setEmployeeToView(employee);
+    setIsViewOpen(true);
   };
   return (
     <div>
@@ -76,12 +91,22 @@ export function EmployeesPage() {
           <Button onClick={() => refetch()}>Retry</Button>
         </div>
       ) : (
-        <EmployeeTable
-          employees={employees}
-          onEdit={handleEdit}
-          onDelete={handleDeleteClick}
-          isLoading={isLoading}
-        />
+        <>
+          <Input
+            type="text"
+            placeholder="Search employees..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="border rounded px-3 py-2 text-sm mb-4 w-64"
+          />
+          <EmployeeTable
+            employees={employees}
+            onEdit={handleEdit}
+            onDelete={handleDeleteClick}
+            isLoading={isLoading}
+            onView={handleView}
+          />
+        </>
       )}
       {isFormOpen && (
         <EmployeeFormModal
@@ -107,6 +132,16 @@ export function EmployeesPage() {
         }}
         itemName={employeeToDelete?.name ?? ""}
         isLoading={deleteEmployee.isPending}
+      />
+
+      <EmployeeDetailModal
+        isOpen={isViewOpen}
+        onClose={() => {
+          setIsViewOpen(false);
+          setEmployeeToView(null);
+        }}
+        employee={employeeToView}
+        onEdit={handleEdit}
       />
     </div>
   );

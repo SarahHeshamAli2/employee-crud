@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { employeeService } from "../services/employees.service";
 
-export function useEmployees() {
+export function useEmployees(search?: string) {
   const {
     data: employees = [],
     isLoading,
@@ -9,8 +9,8 @@ export function useEmployees() {
     refetch,
     error,
   } = useQuery({
-    queryKey: ["employees"],
-    queryFn: () => employeeService.getAll(),
+    queryKey: ["employees", search],
+    queryFn: () => employeeService.getAll(search),
   });
 
   return {

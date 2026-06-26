@@ -9,6 +9,7 @@ interface EmployeeTableProps {
   skeletonRows?: number;
   onEdit?: (employee: Employee) => void;
   onDelete?: (employee: Employee) => void;
+  onView?: (employee: Employee) => void;
 }
 
 export default function EmployeeTable({
@@ -16,6 +17,7 @@ export default function EmployeeTable({
   isLoading,
   onEdit,
   onDelete,
+  onView,
 }: EmployeeTableProps) {
   const hasActions = Boolean(onEdit || onDelete);
 
@@ -72,6 +74,14 @@ export default function EmployeeTable({
                 {hasActions && (
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2">
+                      {onView && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => onView(employee)}>
+                          View
+                        </Button>
+                      )}
                       {onEdit && (
                         <Button
                           variant="outline"
