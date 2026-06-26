@@ -4,7 +4,7 @@ import type { EmployeeService } from "../types/employee.types";
 export const employeeService: EmployeeService = {
   getAll: async (search) => {
     const { data } = await axiosInstance.get("/employees", {
-      params: { search },
+      params: { search: search?.trim() ? search.trim() : undefined },
     });
     return data;
   },
