@@ -42,7 +42,10 @@ export function EmployeesPage() {
       updateEmployee.mutate(
         { id: employeeToEdit.id, data },
         {
-          onSuccess: () => setIsFormOpen(false),
+          onSuccess: () => {
+            setEmployeeToEdit(null); // ← clear FIRST
+            setIsFormOpen(false);
+          },
         },
       );
     } else {
@@ -50,7 +53,6 @@ export function EmployeesPage() {
         onSuccess: () => setIsFormOpen(false),
       });
     }
-    setEmployeeToEdit(null);
   };
 
   const handleEdit = (employee: Employee) => {

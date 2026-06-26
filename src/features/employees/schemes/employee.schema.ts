@@ -11,6 +11,7 @@ export const employeeFormSchema = z.object({
       .number({
         error: "Age is required",
       })
+      .max(90, "max age is 90")
       .int("Age must be a whole number")
       .positive("Age must be a positive number"),
   ),
@@ -24,6 +25,7 @@ export const employeeFormSchema = z.object({
       .number({
         error: "Salary is required",
       })
+      .max(100000, "max salary is million")
       .positive("Salary must be a positive number"),
   ),
 });
