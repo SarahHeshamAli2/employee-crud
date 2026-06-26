@@ -92,19 +92,26 @@ export function EmployeesPage() {
         </div>
       ) : (
         <>
-          <Input
-            type="text"
-            placeholder="Search employees..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="border rounded px-3 py-2 text-sm mb-4 w-64"
-          />
+          {(employees.length > 0 || debouncedSearch) && (
+            <Input
+              type="text"
+              placeholder="Search employees..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="border rounded px-3 py-2 text-sm mb-4 w-64"
+            />
+          )}
           <EmployeeTable
             employees={employees}
             onEdit={handleEdit}
             onDelete={handleDeleteClick}
             isLoading={isLoading}
             onView={handleView}
+            emptyMessage={
+              debouncedSearch
+                ? `No employees found for "${debouncedSearch}".`
+                : "No employees found."
+            }
           />
         </>
       )}

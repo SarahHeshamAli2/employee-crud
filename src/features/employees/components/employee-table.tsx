@@ -10,6 +10,7 @@ interface EmployeeTableProps {
   onEdit?: (employee: Employee) => void;
   onDelete?: (employee: Employee) => void;
   onView?: (employee: Employee) => void;
+  emptyMessage?: string;
 }
 
 export default function EmployeeTable({
@@ -18,6 +19,7 @@ export default function EmployeeTable({
   onEdit,
   onDelete,
   onView,
+  emptyMessage = "No employees found.",
 }: EmployeeTableProps) {
   const hasActions = Boolean(onEdit || onDelete);
 
@@ -53,7 +55,7 @@ export default function EmployeeTable({
               <td
                 colSpan={hasActions ? 5 : 4}
                 className="px-6 py-8 text-center text-sm text-gray-500">
-                No employees found.
+                {emptyMessage}
               </td>
             </tr>
           ) : (
